@@ -2,8 +2,9 @@ FsLens项目结构说明
 ```plaintext
 FsLens/
 ├── .vscode/              # VSCode配置（上面所有json）
+    |—— settings.json
 ├── src/
-│   ├── main.cpp          # 程序入口
+│   ├── FsLens.cpp          # 程序入口
 │   ├── file_scanner.hpp  # 文件检索核心
 │   ├── cmd_parser.hpp    # 命令行参数解析（兼容CMD参数风格）
 │   └── utils.hpp

@@ -50,3 +50,22 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# 构建产物
+bin/*.exe
+build/
+*.o
+*.obj
+*.dbg
+*.ilk
+*.pdb
+
+# VSCode
+.vscode/.cache
+.vscode/*.log
+.vs/
+*.suo
+
+# OS文件
+.DS_Store
+Thumbs.db
