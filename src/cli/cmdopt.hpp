@@ -3,6 +3,9 @@
 #include "../platform/platform.hpp"
 #include <cstring>
 #include <iostream>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 struct Options {
     fs_string search_path = L".";   // 默认当前目录
@@ -43,6 +46,25 @@ inline Options parse_options(int argc, wchar_t* argv[]) {
 }
 
 inline void print_help() {
+#ifdef _WIN32
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hConsole != INVALID_HANDLE_VALUE) {
+        DWORD written;
+        const wchar_t* lines[] = {
+            L"FsLens - 跨平台文件检索工具 (v1.0)\n",
+            L"用法: FsLens [选项]\n",
+            L"  -p, --path <路径>    指定搜索目录 (默认: .)\n",
+            L"  -n, --name <模式>    文件名包含匹配 (如: main, .txt)\n",
+            L"  -r, --recursive      递归搜索子目录\n",
+            L"  -h, --help           显示此帮助信息\n"
+        };
+        for (const auto& line : lines) {
+            WriteConsoleW(hConsole, line, wcslen(line), &written, NULL);
+        }
+        return;
+    }
+    #endif
+    // 回退到标准输出（非Windows或控制台不可用时）
     std::wcout << L"FsLens - 跨平台文件检索工具 (v1.0)" << std::endl;
     std::wcout << L"用法: FsLens [选项]" << std::endl;
     std::wcout << L"  -p, --path <路径>    指定搜索目录 (默认: .)" << std::endl;
