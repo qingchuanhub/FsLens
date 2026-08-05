@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build FsLens (MinGW)",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-static-libgcc",
+                "-static-libstdc++",
+                "-DUNICODE",
+                "-D_UNICODE",
+                "-g",
+                "-O2",
+                "src/*.cpp",
+                "src/platform/*.cpp",
+                "-o",
+                "FsLens.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}

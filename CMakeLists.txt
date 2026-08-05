@@ -1,33 +1,29 @@
-cmake_minimum_required(VERSION 3.20)
-project(FsLens LANGUAGES C CXX)
+cmake_minimum_required(VERSION 3.10)
+project(FsLens VERSION 1.0.0 LANGUAGES CXX)
 
+# 启用 C++17 标准
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Windows 全局定义，兼容CMD、宽字符路径遍历
-if(WIN32)
-    add_definitions(-DUNICODE -D_UNICODE -DWIN32)
+# 针对 Windows/MinGW 的特定配置
+if (MINGW OR WIN32)
+    # 定义 Unicode 宏
+    add_definitions(-DUNICODE -D_UNICODE)
+    # 静态链接运行时库，使 exe 可独立运行
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+    # 禁用控制台窗口的 DEP 警告（可选）
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mconsole")
 endif()
 
-# 输出目录
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-
-# 源码目录
-file(GLOB SRC_FILES "${CMAKE_SOURCE_DIR}/src/*.cpp" "${CMAKE_SOURCE_DIR}/src/*.hpp")
-
-add_executable(FsLens ${SRC_FILES})
-
-# MinGW 静态链接，运行不需要附带dll
-if(MINGW)
-    target_link_options(FsLens PRIVATE
-        -static-libgcc
-        -static-libstdc++
-    )
-endif()
-
-# Release / Debug 编译选项
-target_compile_options(FsLens PRIVATE
-    $<$<CONFIG:Release>:-O2 -Wall -Wextra>
-    $<$<CONFIG:Debug>:-g -Og -Wall -Wextra>
+# 收集源文件
+set(SOURCES
+    src/FsLens.cpp
+    src/scanner.cpp
+    src/platform/win32.cpp
 )
+
+# 添加头文件搜索路径
+include_directories(src)
+
+# 生成可执行文件
+add_executable(FsLens ${SOURCES})
