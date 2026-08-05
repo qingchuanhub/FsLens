@@ -1,0 +1,7 @@
+{
+    "cmake.cxxCompiler": "D:/mingw64/Mingw_64/bin/g++.exe",
+    "cmake.cCompiler": "D:/mingw64/Mingw_64/bin/gcc.exe",
+    "cmake.generator": "Ninja",
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "C_Cpp.default.compilerPath": "D:/mingw64/Mingw_64/bin/g++.exe"
+}
