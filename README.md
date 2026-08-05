@@ -181,4 +181,3 @@ FsLens/
 ---
 
 > Made with ❤️ and C++17.
-```
