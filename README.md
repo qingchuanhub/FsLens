@@ -156,7 +156,7 @@ FsLens/
 ## 📧 联系方式
 
 - 作者：qingchuanhub & Greenchannel
-- 邮箱：qingchuanyj@agent.qq.com
+- 邮箱：qingchuanyj@agent.qq.com or cute486@agent.qq.com
 - 项目主页：[GitHub 链接](https://github.com/qingchuanhub/FsLens)
 
 ---
