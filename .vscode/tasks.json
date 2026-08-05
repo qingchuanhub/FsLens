@@ -9,12 +9,15 @@
                 "-std=c++17",
                 "-static-libgcc",
                 "-static-libstdc++",
+                "-municode",
                 "-DUNICODE",
                 "-D_UNICODE",
                 "-g",
                 "-O2",
-                "src/*.cpp",
-                "src/platform/*.cpp",
+                "-Isrc",                       // ← 添加头文件搜索路径
+                "src/FsLens.cpp",
+                "src/scanner.cpp",
+                "src/platform/win32.cpp",      // 明确列出
                 "-o",
                 "FsLens.exe"
             ],
