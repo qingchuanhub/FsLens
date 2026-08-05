@@ -2,7 +2,7 @@
 
 [![C++17](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://isocpp.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)]()
+[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)]()
 
 FsLens 是一款使用 **C++17** 开发的命令行文件检索工具，支持**模糊匹配**、**正则表达式**（预留）、**大小/时间过滤**（预留）和**递归搜索**。项目优先适配 Windows CMD，同时通过抽象层保留了对 Linux/macOS 的扩展能力。
 
