@@ -7,11 +7,14 @@
 #include <windows.h>
 #endif
 
+#define FSLENS_VERSION L"Beta 1.0.0"
+
 struct Options {
     fs_string search_path = L".";   // 默认当前目录
     fs_string name_pattern = L"";   // 空表示匹配所有
     bool recursive = false;
     bool show_help = false;
+    bool show_version = false;
 };
 
 inline Options parse_options(int argc, wchar_t* argv[]) {
@@ -22,6 +25,10 @@ inline Options parse_options(int argc, wchar_t* argv[]) {
 
         if (arg == L"-h" || arg == L"--help") {
             opts.show_help = true;
+            return opts;
+        }
+        else if (arg == L"-v" || arg == L"--version") {
+            opts.show_version = true;
             return opts;
         }
         else if (arg == L"-p" || arg == L"--path") {
@@ -56,6 +63,7 @@ inline void print_help() {
             L"  -p, --path <路径>    指定搜索目录 (默认: .)\n",
             L"  -n, --name <模式>    文件名包含匹配 (如: main, .txt)\n",
             L"  -r, --recursive      递归搜索子目录\n",
+            L"  -v, --version        显示版本信息\n",
             L"  -h, --help           显示此帮助信息\n"
         };
         for (const auto& line : lines) {
@@ -70,5 +78,18 @@ inline void print_help() {
     std::wcout << L"  -p, --path <路径>    指定搜索目录 (默认: .)" << std::endl;
     std::wcout << L"  -n, --name <模式>    文件名包含匹配 (如: main, .txt)" << std::endl;
     std::wcout << L"  -r, --recursive      递归搜索子目录" << std::endl;
+    std::wcout << L"  -v, --version        显示版本信息" << std::endl;
     std::wcout << L"  -h, --help           显示此帮助信息" << std::endl;
+}
+inline void print_version() {
+#ifdef _WIN32
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hConsole != INVALID_HANDLE_VALUE) {
+        DWORD written;
+        const wchar_t* msg = L"FsLens Beta 1.0.0\n";
+        WriteConsoleW(hConsole, msg, wcslen(msg), &written, NULL);
+        return;
+    }
+#endif
+    std::wcout << L"FsLens Beta 1.0.0" << std::endl;
 }
