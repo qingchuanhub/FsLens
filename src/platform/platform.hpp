@@ -5,6 +5,10 @@
 #include <vector>
 #include <cstdint>
 
+#ifdef _Liunx_
+    #waring "Liux支持暂时无限期推迟，暂时仅支持macOS和Windows"
+    // 但实际还是走 POSIX，万一有人自己编译呢
+#endif
 #ifdef _WIN32
     #define FSLENS_WINDOWS 1
     typedef wchar_t fs_char;
