@@ -9,11 +9,17 @@
 #include <windows.h>
 #endif
 
-#define FSLENS_VERSION L"Beta 1.0.0"
+#ifdef _WIN32
+    #define FSLENS_TEXT(x) L##x
+#else
+    #define FSLENS_TEXT(x) x
+#endif
+
+#define FSLENS_VERSION "Beta 1.0.0"
 
 struct Options {
-    fs_string search_path = L".";
-    fs_string name_pattern = L"";
+    fs_string search_path = FSLENS_TEXT(".");
+    fs_string name_pattern = FSLENS_TEXT("");
     bool recursive = false;
     bool show_help = false;
     bool show_version = false;
@@ -25,25 +31,25 @@ inline Options parse_options(int argc, wchar_t* argv[]) {
     for (int i = 1; i < argc; ++i) {
         fs_string arg = argv[i];
 
-        if (arg == L"-h" || arg == L"--help") {
+        if (arg == FSLENS_TEXT("-h") || arg == FSLENS_TEXT("--help")) {
             opts.show_help = true;
             return opts;
         }
-        else if (arg == L"-v" || arg == L"--version") {
+        else if (arg == FSLENS_TEXT("-v") || arg == FSLENS_TEXT("--version")) {
             opts.show_version = true;
             return opts;
         }
-        else if (arg == L"-p" || arg == L"--path") {
+        else if (arg == FSLENS_TEXT("-p") || arg == FSLENS_TEXT("--path")) {
             if (i + 1 < argc) {
                 opts.search_path = argv[++i];
             }
         }
-        else if (arg == L"-n" || arg == L"--name") {
+        else if (arg == FSLENS_TEXT("-n") || arg == FSLENS_TEXT("--name")) {
             if (i + 1 < argc) {
                 opts.name_pattern = argv[++i];
             }
         }
-        else if (arg == L"-r" || arg == L"--recursive") {
+        else if (arg == FSLENS_TEXT("-r") || arg == FSLENS_TEXT("--recursive")) {
             opts.recursive = true;
         }
         else {
@@ -75,7 +81,7 @@ inline void print_help() {
         return;
     }
 #endif
-    std::wcout << L"FsLens - 跨平台文件检索工具 (" << FSLENS_VERSION << L")" << std::endl;
+    std::wcout << L"FsLens - 跨平台文件检索工具 (" << FSLENS_VERSION << ")" << std::endl;
     std::wcout << L"用法: FsLens [选项]" << std::endl;
     std::wcout << L"  -p, --path <路径>    指定搜索目录 (默认: .)" << std::endl;
     std::wcout << L"  -n, --name <模式>    文件名包含匹配 (如: main, .txt)" << std::endl;

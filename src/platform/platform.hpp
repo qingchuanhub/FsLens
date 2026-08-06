@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <ctime>
 
 #ifdef _Liunx_
     #waring "Liux支持暂时无限期推迟，暂时仅支持macOS和Windows"
