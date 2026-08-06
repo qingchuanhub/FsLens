@@ -1,8 +1,10 @@
+// src/cli/cmdopt.hpp
 #pragma once
 
 #include "../platform/platform.hpp"
 #include <cstring>
 #include <iostream>
+
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -10,8 +12,8 @@
 #define FSLENS_VERSION L"Beta 1.0.0"
 
 struct Options {
-    fs_string search_path = L".";   // 默认当前目录
-    fs_string name_pattern = L"";   // 空表示匹配所有
+    fs_string search_path = L".";
+    fs_string name_pattern = L"";
     bool recursive = false;
     bool show_help = false;
     bool show_version = false;
@@ -45,7 +47,6 @@ inline Options parse_options(int argc, wchar_t* argv[]) {
             opts.recursive = true;
         }
         else {
-            // 未识别的参数，当作路径处理（简单兼容）
             opts.search_path = arg;
         }
     }
@@ -58,7 +59,9 @@ inline void print_help() {
     if (hConsole != INVALID_HANDLE_VALUE) {
         DWORD written;
         const wchar_t* lines[] = {
-            L"FsLens - 跨平台文件检索工具 (v1.0)\n",
+            L"FsLens - 跨平台文件检索工具 (",
+            FSLENS_VERSION,
+            L")\n",
             L"用法: FsLens [选项]\n",
             L"  -p, --path <路径>    指定搜索目录 (默认: .)\n",
             L"  -n, --name <模式>    文件名包含匹配 (如: main, .txt)\n",
@@ -71,9 +74,8 @@ inline void print_help() {
         }
         return;
     }
-    #endif
-    // 回退到标准输出（非Windows或控制台不可用时）
-    std::wcout << L"FsLens - 跨平台文件检索工具 (v1.0)" << std::endl;
+#endif
+    std::wcout << L"FsLens - 跨平台文件检索工具 (" << FSLENS_VERSION << L")" << std::endl;
     std::wcout << L"用法: FsLens [选项]" << std::endl;
     std::wcout << L"  -p, --path <路径>    指定搜索目录 (默认: .)" << std::endl;
     std::wcout << L"  -n, --name <模式>    文件名包含匹配 (如: main, .txt)" << std::endl;
@@ -81,15 +83,16 @@ inline void print_help() {
     std::wcout << L"  -v, --version        显示版本信息" << std::endl;
     std::wcout << L"  -h, --help           显示此帮助信息" << std::endl;
 }
+
 inline void print_version() {
 #ifdef _WIN32
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     if (hConsole != INVALID_HANDLE_VALUE) {
         DWORD written;
-        const wchar_t* msg = L"FsLens Beta 1.0.0\n";
+        const wchar_t* msg = FSLENS_VERSION L"\n";
         WriteConsoleW(hConsole, msg, wcslen(msg), &written, NULL);
         return;
     }
 #endif
-    std::wcout << L"FsLens Beta 1.0.0" << std::endl;
+    std::wcout << FSLENS_VERSION << std::endl;
 }
