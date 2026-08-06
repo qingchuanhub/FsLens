@@ -1,3 +1,4 @@
+//src/scanner.cpp
 #include "scanner.hpp"
 #include "platform/platform.hpp"
 #include <vector>
