@@ -1,6 +1,4 @@
-//src/scanner.hpp
 #pragma once
-
 #include "platform/platform.hpp"
 #include <vector>
 

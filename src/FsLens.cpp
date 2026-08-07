@@ -33,8 +33,8 @@ int main(int argc, char* argv[]) {
         opts.search_path,
         opts.name_pattern,
         opts.recursive,
-        opts.min_size,      // <- 新增
-        opts.max_size,      // <- 新增
+        opts.min_size,
+        opts.max_size,
         results
     );
 
