@@ -15,7 +15,7 @@
     #define FSLENS_TEXT(x) x
 #endif
 
-#define FSLENS_VERSION "Beta 1.0.0"
+#define FSLENS_VERSION "1.0.0"
 
 struct Options {
     fs_string search_path = FSLENS_TEXT(".");
